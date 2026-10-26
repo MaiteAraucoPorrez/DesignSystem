@@ -43,3 +43,31 @@ val DarkDsColors = DsColors(
     error = Color(0xFFF2B8B5),
     onError = Color(0xFF601410)
 )
+
+/** Alto contraste: texto negro puro sobre blanco y colores de marca más oscuros (contraste AAA). */
+val HighContrastLightDsColors = DsColors(
+    primary = Color(0xFF002A6B),
+    onPrimary = Color(0xFFFFFFFF),
+    secondary = Color(0xFF00413A),
+    onSecondary = Color(0xFFFFFFFF),
+    background = Color(0xFFFFFFFF),
+    onBackground = Color(0xFF000000),
+    surface = Color(0xFFFFFFFF),
+    onSurface = Color(0xFF000000),
+    error = Color(0xFF7A0000),
+    onError = Color(0xFFFFFFFF)
+)
+
+/** Alto contraste oscuro: texto blanco puro sobre negro y colores de marca muy claros. */
+val HighContrastDarkDsColors = DsColors(
+    primary = Color(0xFFD6E9FF),
+    onPrimary = Color(0xFF000000),
+    secondary = Color(0xFFC8FFF6),
+    onSecondary = Color(0xFF000000),
+    background = Color(0xFF000000),
+    onBackground = Color(0xFFFFFFFF),
+    surface = Color(0xFF000000),
+    onSurface = Color(0xFFFFFFFF),
+    error = Color(0xFFFFDAD6),
+    onError = Color(0xFF000000)
+)

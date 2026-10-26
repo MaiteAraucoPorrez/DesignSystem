@@ -48,3 +48,15 @@ kotlin {
         }
     }
 }
+
+// Además de mavenLocal, se publica dentro del repo de la app (carpeta ds-repo),
+// así la app compila en cualquier computadora sin ejecutar publishToMavenLocal antes.
+// Uso: ./gradlew publishAllPublicationsToAppRepoRepository
+publishing {
+    repositories {
+        maven {
+            name = "appRepo"
+            url = uri(rootProject.file("../ucbp1_project_modified/ds-repo"))
+        }
+    }
+}

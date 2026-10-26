@@ -147,3 +147,24 @@ Estos archivos deben estar incluidos en `.gitignore`.
 
 Proyecto académico desarrollado para la materia de Programación de Dispositivos Móviles de la Universidad Católica Boliviana.
 ```
+## Publicar dentro del repo de la app
+
+La app (`ucbp1_project_modified`, carpeta vecina) consume el Design System desde su carpeta `ds-repo/`,
+así compila en cualquier computadora sin `publishToMavenLocal`:
+
+```cmd
+gradlew.bat :shared:publishAllPublicationsToAppRepoRepository
+```
+
+Después hay que hacer commit de `ds-repo/` en el repo de la app.
+
+## Temas: claro, oscuro y alto contraste
+
+```kotlin
+MyProjectTheme(
+    darkTheme = isSystemInDarkTheme(), // por defecto sigue al sistema
+    highContrast = true                // usa HighContrastLightDsColors / HighContrastDarkDsColors
+) { /* UI */ }
+```
+
+`dsColorsFor(darkTheme, highContrast)` devuelve la paleta correspondiente.

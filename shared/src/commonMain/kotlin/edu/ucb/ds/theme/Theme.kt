@@ -38,11 +38,17 @@ object MyProjectTheme {
         get() = LocalDsSpacing.current
 }
 
-/** Envuelve tu pantalla con este tema:  MyProjectTheme { ...tu UI... } */
+/**
+ * Envuelve tu pantalla con este tema:  MyProjectTheme { ...tu UI... }
+ *
+ * darkTheme sigue al sistema por defecto. highContrast cambia a las paletas de alto contraste
+ * (claro u oscuro según darkTheme).
+ */
 @Composable
 fun MyProjectTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    colors: DsColors = if (darkTheme) DarkDsColors else LightDsColors,
+    highContrast: Boolean = false,
+    colors: DsColors = dsColorsFor(darkTheme, highContrast),
     typography: DsTypography = DefaultDsTypography,
     spacing: DsSpacing = DefaultDsSpacing,
     content: @Composable () -> Unit
@@ -58,6 +64,14 @@ fun MyProjectTheme(
             content = content
         )
     }
+}
+
+/** Elige la paleta según modo oscuro y alto contraste. */
+fun dsColorsFor(darkTheme: Boolean, highContrast: Boolean): DsColors = when {
+    highContrast && darkTheme -> HighContrastDarkDsColors
+    highContrast -> HighContrastLightDsColors
+    darkTheme -> DarkDsColors
+    else -> LightDsColors
 }
 
 private fun DsColors.toMaterialColorScheme(darkTheme: Boolean): ColorScheme =

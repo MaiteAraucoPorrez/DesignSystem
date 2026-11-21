@@ -48,6 +48,34 @@ En PowerShell:
 .\gradlew.bat build
 ```
 
+## Tipografía
+
+`MyProjectTheme` usa **Fira Sans** (pesos Regular, Medium, SemiBold y Bold, licencia OFL en
+`licenses/FiraSans-OFL.txt`). Los archivos están en `shared/src/commonMain/composeResources/font/` y
+viajan dentro del paquete publicado, así que la app no necesita agregar nada. La misma familia se aplica
+a los componentes de Material 3. Los componentes `AppHeading`, `AppBody` y `AppLabel` aceptan
+`textAlign` para centrar o justificar el texto.
+
+Para cambiar la fuente: reemplaza los `.ttf` (conservando los nombres) o edita `rememberDsFontFamily()`
+en `theme/Type.kt`.
+
+## Publicar dentro de la app (ds-repo)
+
+La app de visión artificial incluye una copia Maven del Design System en su carpeta `ds-repo/`.
+Para actualizarla desde este proyecto:
+
+```cmd
+gradlew.bat :shared:publishAllPublicationsToAppRepoRepository
+```
+
+Por defecto publica en `../proyecto_4to_elem/ds-repo`. Para otra aplicación:
+
+```cmd
+gradlew.bat :shared:publishAllPublicationsToAppRepoRepository -PappRepoPath=../otra_app/ds-repo
+```
+
+Después haz commit de los archivos nuevos de `ds-repo/` en la app.
+
 ## Publicar localmente
 
 Para publicar el Design System en el repositorio local de Maven:

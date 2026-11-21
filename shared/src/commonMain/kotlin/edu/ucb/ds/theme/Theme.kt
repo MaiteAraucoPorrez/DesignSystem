@@ -49,7 +49,7 @@ fun MyProjectTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     highContrast: Boolean = false,
     colors: DsColors = dsColorsFor(darkTheme, highContrast),
-    typography: DsTypography = DefaultDsTypography,
+    typography: DsTypography = rememberDsTypography(),
     spacing: DsSpacing = DefaultDsSpacing,
     content: @Composable () -> Unit
 ) {
@@ -58,9 +58,11 @@ fun MyProjectTheme(
         LocalDsTypography provides typography,
         LocalDsSpacing provides spacing
     ) {
-        // Material3 por dentro usa los mismos colores, así los componentes base no se ven distintos.
+        // Material3 por dentro usa los mismos colores y la misma tipografía, así los componentes
+        // base no se ven distintos a los del Design System.
         MaterialTheme(
             colorScheme = colors.toMaterialColorScheme(darkTheme),
+            typography = typography.toMaterialTypography(),
             content = content
         )
     }

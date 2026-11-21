@@ -32,6 +32,11 @@ kotlin {
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
+        // Necesario para que las fuentes (composeResources) viajen dentro del AAR publicado.
+        androidResources {
+            enable = true
+        }
+
         compilerOptions {
             jvmTarget = JvmTarget.JVM_17
         }
@@ -44,19 +49,30 @@ kotlin {
             api(libs.compose.foundation)
             api(libs.compose.material3)
             api(libs.compose.ui)
+            // Recursos empaquetados (tipografía Fira Sans en composeResources/font).
+            implementation(libs.compose.components.resources)
             implementation(libs.compose.uiToolingPreview)
         }
     }
 }
 
+compose.resources {
+    // La clase Res es interna: la app no la necesita, solo recibe los recursos empaquetados.
+    publicResClass = false
+    packageOfResClass = "edu.ucb.ds.resources"
+}
+
 // Además de mavenLocal, se publica dentro del repo de la app (carpeta ds-repo),
 // así la app compila en cualquier computadora sin ejecutar publishToMavenLocal antes.
 // Uso: ./gradlew publishAllPublicationsToAppRepoRepository
+// Por defecto publica en la app de visión artificial (carpeta vecina proyecto_4to_elem).
+// Para otra app: ./gradlew publishAllPublicationsToAppRepoRepository -PappRepoPath=../otra_app/ds-repo
+val appRepoPath = providers.gradleProperty("appRepoPath").orElse("../proyecto_4to_elem/ds-repo")
 publishing {
     repositories {
         maven {
             name = "appRepo"
-            url = uri(rootProject.file("../ucbp1_project_modified/ds-repo"))
+            url = uri(rootProject.file(appRepoPath.get()))
         }
     }
 }
